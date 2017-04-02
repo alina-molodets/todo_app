@@ -27,9 +27,12 @@ public class TodoService {
         return todoDao.findTodo(id);
     }
 
-    public void addTodo(Todo todo) {
+    @Transactional(readOnly = false)
+    public Long addTodo(Todo todo) {
         logger.debug("addTodo: start");
-        todoDao.addTodo(todo);
+        Long addedTodo = todoDao.addTodo(todo);
+        logger.info("addTodo: todo {} was saved", addedTodo);
+        return addedTodo;
     }
 
 

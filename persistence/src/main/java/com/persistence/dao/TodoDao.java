@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.io.Serializable;
+
 
 /**
  * Created by alinaaleksandrova on 3/27/17.
@@ -29,8 +31,9 @@ public class TodoDao {
         return null;
     }
 
-    public void addTodo(Todo todo) {
-
+    public Long addTodo(Todo todo) {
+        Long savedTodo = (Long) getSession().save(todo);
+        return savedTodo;
     }
 
     public void deleteTodo(Long id) {
