@@ -7,9 +7,10 @@
   <packaging>pom</packaging>
   <name>todo_app</name>
 
-    <modules>
-        <module>backend</module>
-    </modules>
+  <modules>
+    <module>backend</module>
+    <module>persistence</module>
+  </modules>
 
   
 </project>

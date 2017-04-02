@@ -6,7 +6,7 @@
 	<groupId>com.backend</groupId>
 	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 
 	<name>backend</name>
 	<description>Demo project for Spring Boot</description>
@@ -49,9 +49,19 @@
 			<artifactId>spring-boot-starter-jersey</artifactId>
 			<version>1.5.2.RELEASE</version>
 		</dependency>
+        <dependency>
+            <groupId>com.backendtodo.app</groupId>
+            <artifactId>persistence</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
 
 
 	</dependencies>
+
+	<!--<modules>
+		<module>../persistence</module>
+	</modules>-->
 
 	<build>
 		<plugins>
