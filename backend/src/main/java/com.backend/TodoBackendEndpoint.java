@@ -14,6 +14,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by alinaaleksandrova on 3/25/17.
@@ -31,16 +33,23 @@ public class TodoBackendEndpoint {
     @Context
     private UriInfo uriInfo;
 
-    @GET
-    public String executeGetRequest() {
-        return "test";
-    }
-
+    @Path("/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{id}")
     public Response executeGetByIdRequest(@PathParam("id") String id) {
-          return Response.ok().build();
+        logger.info("executeGetById received for id {}", id);
+
+        Todo todo = todoService.findTodo(Long.valueOf(id));
+        return Response.ok(todo).build();
+    }
+
+
+    @GET
+    public Response executeGetAllRequest() {
+        List<Todo> todos = todoService.findAllTodos();
+        logger.info("found Todos: {}", todos);
+
+        return Response.ok(todos, MediaType.APPLICATION_JSON_TYPE).build();
     }
 
     @POST
@@ -53,6 +62,8 @@ public class TodoBackendEndpoint {
         URI createdURI =  uriInfo.getAbsolutePathBuilder().path(String.valueOf(id)).build();
         todo.setId(id);
         todo.setUrl(createdURI.toString());
+        todoService.updateTodo(todo);
+        logger.info("execute post request: updates todo {}", todo);
         return Response.ok(todo).contentLocation(createdURI).build();
     }
 

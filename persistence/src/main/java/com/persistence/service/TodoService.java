@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 /**
  * Created by alinaaleksandrova on 4/1/17.
@@ -25,6 +27,14 @@ public class TodoService {
     public Todo findTodo(Long id) {
         logger.debug("findTodo: start");
         return todoDao.findTodo(id);
+    }
+
+    public List<Todo> findAllTodos() {
+        return todoDao.findAllTodos();
+    }
+
+    public void updateTodo(Todo todo) {
+        todoDao.updateTodo(todo);
     }
 
     @Transactional(readOnly = false)

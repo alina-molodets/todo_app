@@ -13,7 +13,7 @@
 
     <properties>
         <spring.version>4.3.7.RELEASE</spring.version>
-        <hibernate.version>5.2.9.Final</hibernate.version>
+        <hibernate.version>5.1.0.Final</hibernate.version>
     </properties>
 
 
@@ -35,6 +35,12 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jboss-logging</artifactId>
+                    <groupId>org.jboss.logging</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
 

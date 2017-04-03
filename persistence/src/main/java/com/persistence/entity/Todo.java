@@ -57,6 +57,29 @@ public class Todo {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", completed=" + completed +
+                ", url='" + url + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Todo todo = (Todo) o;
+
+        if (completed != todo.completed) return false;
+        if (id != null ? !id.equals(todo.id) : todo.id != null) return false;
+        if (title != null ? !title.equals(todo.title) : todo.title != null) return false;
+        return url != null ? url.equals(todo.url) : todo.url == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (completed ? 1 : 0);
+        result = 31 * result + (url != null ? url.hashCode() : 0);
+        return result;
     }
 }
