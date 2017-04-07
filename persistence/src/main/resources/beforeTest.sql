@@ -1,0 +1,1 @@
+INSERT INTO Todo (id, title, completed) VALUES (1, 'firstTestTodo', false);
