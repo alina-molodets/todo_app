@@ -5,17 +5,16 @@ import com.persistence.entity.Todo;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static org.springframework.test.context.jdbc.SqlConfig.TransactionMode.ISOLATED;
 
 /**
  * Created by alinaaleksandrova on 4/7/17.
@@ -29,6 +28,7 @@ import static org.springframework.test.context.jdbc.SqlConfig.TransactionMode.IS
 @Transactional
 public class TodoDaoTest {
 
+    final static Logger logger = LoggerFactory.getLogger(TodoDaoTest.class);
     private static final String EXISTING_TODO_TITLE = "firstTestTodo";
 
     @Autowired
@@ -43,7 +43,7 @@ public class TodoDaoTest {
         Long id = todoDao.addTodo(todo);
 
         Assert.assertNotNull(id);
-        Assert.assertTrue(id > 0);
+        Assert.assertEquals(Long.valueOf(2), id);
     }
 
     @Test
@@ -70,10 +70,13 @@ public class TodoDaoTest {
     @Test
     public void shouldFindAllTodos() {
         todoDao.addTodo(createTestTodo());
+
         List<Todo> foundTodos = todoDao.findAllTodos();
 
         Assert.assertEquals(2, foundTodos.size());
     }
+
+
 
     private Todo createTestTodo() {
         Todo todo = new Todo();
