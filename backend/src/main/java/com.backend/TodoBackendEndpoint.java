@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import com.persistence.service.TodoService;
+import org.springframework.web.bind.annotation.PatchMapping;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -68,7 +69,22 @@ public class TodoBackendEndpoint {
     }
 
     @DELETE
-    public String executeDeleteRequest() {
-        return "delete";
+    public Response executeDeleteRequest() {
+        todoService.deleteAllTodos();
+        return Response.ok().build();
+    }
+
+    @Path("/{id}")
+    @PATCH
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateTodo(@PathParam("id")String id, Todo todo) {
+        Todo existingTodo = todoService.findTodo(Long.valueOf(id));
+        if (existingTodo == null) {
+            return Response.noContent().build();
+        }
+
+        Todo updatedTodo = todoService.updateTodo(existingTodo, todo);
+        return Response.ok(updatedTodo).build();
     }
 }

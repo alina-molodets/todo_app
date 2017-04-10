@@ -83,4 +83,15 @@ public class Todo {
         result = 31 * result + (url != null ? url.hashCode() : 0);
         return result;
     }
+
+    public void update(Todo newTodo) {
+        if (newTodo.getTitle() != null) {
+            this.title = newTodo.getTitle();
+        }
+        if (this.isCompleted() != newTodo.isCompleted()) {
+            this.completed = newTodo.isCompleted();
+        }
+
+
+    }
 }

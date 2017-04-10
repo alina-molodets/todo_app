@@ -76,7 +76,26 @@ public class TodoDaoTest {
         Assert.assertEquals(2, foundTodos.size());
     }
 
+    @Test
+    public void shouldDeleteAllTodos() {
 
+        int deletedTodos = todoDao.deleteAllTodos();
+
+        List<Todo> foundTodos = todoDao.findAllTodos();
+        Assert.assertTrue(deletedTodos > 0);
+        Assert.assertEquals(0, foundTodos.size());
+    }
+
+    @Test
+    public void shouldDeleteTodoById() {
+        Long addedTodo = todoDao.addTodo(createTestTodo());
+
+        todoDao.deleteTodo(addedTodo);
+
+        Todo deletedTodo = todoDao.findTodo(addedTodo);
+
+        Assert.assertNull(deletedTodo);
+    }
 
     private Todo createTestTodo() {
         Todo todo = new Todo();

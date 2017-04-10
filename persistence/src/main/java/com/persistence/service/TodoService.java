@@ -25,7 +25,6 @@ public class TodoService {
     TodoDao todoDao;
 
     public Todo findTodo(Long id) {
-        logger.debug("findTodo: start");
         return todoDao.findTodo(id);
     }
 
@@ -33,17 +32,34 @@ public class TodoService {
         return todoDao.findAllTodos();
     }
 
-    public void updateTodo(Todo todo) {
-        todoDao.updateTodo(todo);
+    @Transactional(readOnly = false)
+    public Todo updateTodo(Todo existingTodo, Todo newTodo) {
+        existingTodo.update(newTodo);
+        todoDao.updateTodo(existingTodo);
+        return existingTodo;
+    }
+
+
+    @Transactional(readOnly = false)
+    public void deleteAllTodos() {
+        todoDao.deleteAllTodos();
+    }
+
+    @Transactional(readOnly = false)
+    public void deleteTodoById(Long id) {
+        todoDao.deleteTodo(id);
     }
 
     @Transactional(readOnly = false)
     public Long addTodo(Todo todo) {
-        logger.debug("addTodo: start");
         Long addedTodo = todoDao.addTodo(todo);
         logger.info("addTodo: todo {} was saved", addedTodo);
         return addedTodo;
     }
 
 
+    @Transactional(readOnly = false)
+    public void updateTodo(Todo todo) {
+        todoDao.updateTodo(todo);
+    }
 }

@@ -3,6 +3,7 @@ package com.persistence.dao;
 import com.persistence.entity.Todo;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,8 @@ public class TodoDao {
         return savedTodo;
     }
 
-    public void deleteAllTodos() {
-
+    public int deleteAllTodos() {
+        return getSession().createQuery("delete from Todo").executeUpdate();
     }
 
     public void updateTodo(Todo todo) {
@@ -51,7 +52,10 @@ public class TodoDao {
     }
 
     public void deleteTodo(Long id) {
+        Todo todo  = (Todo)getSession().createCriteria(Todo.class).add(Restrictions.eq("id", id))
+                .uniqueResult();
 
+        getSession().delete(todo);
     }
 
 
