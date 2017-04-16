@@ -19,6 +19,9 @@ public class Todo {
     @Column
     private String url;
 
+    @Column(name = "\"order\"")
+   private Long order;
+
 
     public Long getId() {
         return id;
@@ -52,14 +55,12 @@ public class Todo {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "Todo{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", completed=" + completed +
-                ", url='" + url + '\'' +
-                '}';
+    public Long getOrder() {
+        return order;
+    }
+
+    public void setOrder(Long order) {
+        this.order = order;
     }
 
     @Override
@@ -70,18 +71,31 @@ public class Todo {
         Todo todo = (Todo) o;
 
         if (completed != todo.completed) return false;
-        if (id != null ? !id.equals(todo.id) : todo.id != null) return false;
-        if (title != null ? !title.equals(todo.title) : todo.title != null) return false;
-        return url != null ? url.equals(todo.url) : todo.url == null;
+        if (!id.equals(todo.id)) return false;
+        if (!title.equals(todo.title)) return false;
+        if (url != null ? !url.equals(todo.url) : todo.url != null) return false;
+        return order != null ? order.equals(todo.order) : todo.order == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (title != null ? title.hashCode() : 0);
+        int result = id.hashCode();
+        result = 31 * result + title.hashCode();
         result = 31 * result + (completed ? 1 : 0);
         result = 31 * result + (url != null ? url.hashCode() : 0);
+        result = 31 * result + (order != null ? order.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Todo{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", completed=" + completed +
+                ", url='" + url + '\'' +
+                ", order=" + order +
+                '}';
     }
 
     public void update(Todo newTodo) {
