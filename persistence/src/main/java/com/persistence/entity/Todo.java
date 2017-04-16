@@ -18,10 +18,19 @@ public class Todo {
     private boolean completed;
     @Column
     private String url;
-
     @Column(name = "\"order\"")
-   private Long order;
+    private Long order;
 
+    public Todo() {
+    }
+
+    public Todo(Long id, String title, boolean completed, String url, Long order) {
+        this.id = id;
+        this.title = title;
+        this.completed = completed;
+        this.url = url;
+        this.order = order;
+    }
 
     public Long getId() {
         return id;
@@ -105,10 +114,9 @@ public class Todo {
         if (this.isCompleted() != newTodo.isCompleted()) {
             this.completed = newTodo.isCompleted();
         }
-        if (this.getOrder() != newTodo.getOrder()) {
+        if (newTodo.getOrder() != null && this.getOrder() != newTodo.getOrder()) {
             this.order = newTodo.getOrder();
         }
-
 
     }
 }
