@@ -75,6 +75,13 @@ public class TodoBackendEndpoint {
     }
 
     @Path("/{id}")
+    @DELETE
+    public Response executeDeleteByIdRequest(@PathParam("id")Long id) {
+        todoService.deleteTodoById(id);
+        return Response.ok().build();
+    }
+
+    @Path("/{id}")
     @PATCH
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
