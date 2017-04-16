@@ -105,6 +105,9 @@ public class Todo {
         if (this.isCompleted() != newTodo.isCompleted()) {
             this.completed = newTodo.isCompleted();
         }
+        if (this.getOrder() != newTodo.getOrder()) {
+            this.order = newTodo.getOrder();
+        }
 
 
     }
