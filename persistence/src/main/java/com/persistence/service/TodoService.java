@@ -33,9 +33,9 @@ public class TodoService {
     }
 
     @Transactional(readOnly = false)
-    public Todo updateTodo(Todo existingTodo, Todo newTodo) {
+    public Todo mergeTodos(Todo existingTodo, Todo newTodo) {
         existingTodo.update(newTodo);
-        todoDao.updateTodo(existingTodo);
+        updateTodo(existingTodo);
         return existingTodo;
     }
 
