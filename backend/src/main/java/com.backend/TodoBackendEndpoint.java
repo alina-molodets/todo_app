@@ -1,21 +1,19 @@
 package com.backend;
 
 import com.persistence.entity.Todo;
+import com.persistence.service.TodoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
-import com.persistence.service.TodoService;
-import org.springframework.web.bind.annotation.PatchMapping;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -28,11 +26,13 @@ public class TodoBackendEndpoint {
 
     Logger logger = LoggerFactory.getLogger(TodoBackendEndpoint.class);
 
-    @Autowired
+    @Inject
     private TodoService todoService;
 
     @Context
     private UriInfo uriInfo;
+
+
 
     @Path("/{id}")
     @GET
@@ -91,7 +91,7 @@ public class TodoBackendEndpoint {
             return Response.noContent().build();
         }
 
-        Todo updatedTodo = todoService.updateTodo(existingTodo, todo);
+        Todo updatedTodo = todoService.mergeTodos(existingTodo, todo);
         return Response.ok(updatedTodo).build();
     }
 }

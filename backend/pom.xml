@@ -37,13 +37,6 @@
 			<version>1.1.3</version>
 		</dependency>
 
-
-		<!--<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>-->
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jersey</artifactId>
@@ -56,12 +49,16 @@
         </dependency>
 
 
+		<!-- Test framework -->
+		<dependency>
+			<groupId>org.glassfish.jersey.test-framework.providers</groupId>
+			<artifactId>jersey-test-framework-provider-grizzly2</artifactId>
+			<version>2.25.1</version>
+		</dependency>
+
 
 	</dependencies>
 
-	<!--<modules>
-		<module>../persistence</module>
-	</modules>-->
 
 	<build>
 		<plugins>
