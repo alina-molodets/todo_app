@@ -35,7 +35,6 @@ public class TodoDaoTest {
     private TodoDao todoDao;
 
 
-
     @Test
     public void shouldAddTodo() {
         Todo todo = createTestTodo();
