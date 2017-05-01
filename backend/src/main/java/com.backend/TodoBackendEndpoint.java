@@ -24,7 +24,7 @@ import java.util.List;
 @ComponentScan("com.persistence.service")
 public class TodoBackendEndpoint {
 
-    Logger logger = LoggerFactory.getLogger(TodoBackendEndpoint.class);
+    private final static Logger logger = LoggerFactory.getLogger(TodoBackendEndpoint.class);
 
     @Inject
     private TodoService todoService;

@@ -18,7 +18,7 @@ import java.util.List;
 @Repository
 public class TodoDao {
 
-    final static Logger logger = LoggerFactory.getLogger(TodoDao.class);
+    private final static Logger logger = LoggerFactory.getLogger(TodoDao.class);
 
     @Autowired
     private SessionFactory sessionFactory;

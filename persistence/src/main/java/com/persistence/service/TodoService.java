@@ -19,7 +19,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class TodoService {
 
-    final static Logger logger = LoggerFactory.getLogger(TodoService.class);
+    private final static Logger logger = LoggerFactory.getLogger(TodoService.class);
 
     @Autowired
     TodoDao todoDao;
