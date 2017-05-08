@@ -108,6 +108,9 @@ persistence/target/
 todo_app.iml
 /.idea/
 
+
+persistence/persistence.iml
+
 ### macOS template
 *.DS_Store
 .AppleDouble
