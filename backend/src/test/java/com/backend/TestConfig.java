@@ -1,9 +1,5 @@
 package com.backend;
 
-import com.persistence.dao.TodoDao;
-import com.persistence.service.TodoService;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
