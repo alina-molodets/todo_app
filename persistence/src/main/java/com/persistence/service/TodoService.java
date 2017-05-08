@@ -52,9 +52,9 @@ public class TodoService {
 
     @Transactional(readOnly = false)
     public Long addTodo(Todo todo) {
-        Long addedTodo = todoDao.addTodo(todo);
-        logger.info("addTodo: todo {} was saved", addedTodo);
-        return addedTodo;
+        Long addedTodoId = todoDao.addTodo(todo);
+        logger.info("addTodo: todo {} was saved", addedTodoId);
+        return addedTodoId;
     }
 
 

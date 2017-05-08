@@ -18,7 +18,7 @@ public class Todo {
     private boolean completed;
     @Column
     private String url;
-    @Column(name = "\"order\"")
+    @Column(name = "placement")
     private Long order;
 
     public Todo() {

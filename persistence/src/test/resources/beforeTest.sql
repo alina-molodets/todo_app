@@ -1,1 +1,1 @@
-INSERT INTO Todo (id, title, completed, "order") VALUES (1, 'firstTestTodo', false, 1);
+INSERT INTO Todo (id, title, completed, placement) VALUES (1, 'firstTestTodo', false, 1);
