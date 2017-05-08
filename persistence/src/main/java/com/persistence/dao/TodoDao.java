@@ -52,7 +52,8 @@ public class TodoDao {
     }
 
     public void deleteTodo(Long id) {
-        Todo todo  = (Todo)getSession().createCriteria(Todo.class).add(Restrictions.eq("id", id))
+        Todo todo  = (Todo)getSession().createCriteria(Todo.class)
+                .add(Restrictions.eq("id", id))
                 .uniqueResult();
 
         getSession().delete(todo);
