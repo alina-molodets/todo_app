@@ -2,15 +2,12 @@ package com.persistence.entity;
 
 import javax.persistence.*;
 
-/**
- * Created by alinaaleksandrova on 3/26/17.
- */
 @Entity(name = "Todo")
+@IdClass(TodoId.class)
 public class Todo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @GeneratedValue (strategy= GenerationType.SEQUENCE)
     private Long id;
     @Column
     private String title;
@@ -24,20 +21,20 @@ public class Todo {
     public Todo() {
     }
 
-    public Todo(Long id, String title, boolean completed, String url, Long order) {
-        this.id = id;
+    public Todo(TodoId id, String title, boolean completed, String url, Long order) {
+        this.id =  id != null ? id.getId() :  null;
         this.title = title;
         this.completed = completed;
         this.url = url;
         this.order = order;
     }
 
-    public Long getId() {
-        return id;
+    public TodoId getId() {
+        return new TodoId(id);
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(TodoId id) {
+        this.id = id.getId();
     }
 
     public String getTitle() {
@@ -72,6 +69,7 @@ public class Todo {
         this.order = order;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -80,16 +78,16 @@ public class Todo {
         Todo todo = (Todo) o;
 
         if (completed != todo.completed) return false;
-        if (!id.equals(todo.id)) return false;
-        if (!title.equals(todo.title)) return false;
+        if (id != null ? !id.equals(todo.id) : todo.id != null) return false;
+        if (title != null ? !title.equals(todo.title) : todo.title != null) return false;
         if (url != null ? !url.equals(todo.url) : todo.url != null) return false;
         return order != null ? order.equals(todo.order) : todo.order == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + title.hashCode();
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (completed ? 1 : 0);
         result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (order != null ? order.hashCode() : 0);

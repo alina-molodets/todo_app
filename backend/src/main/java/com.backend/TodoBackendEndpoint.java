@@ -1,6 +1,7 @@
 package com.backend;
 
 import com.persistence.entity.Todo;
+import com.persistence.entity.TodoId;
 import com.persistence.service.TodoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,10 +38,10 @@ public class TodoBackendEndpoint {
     @Path("/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response executeGetByIdRequest(@PathParam("id") String id) {
+    public Response executeGetByIdRequest(@PathParam("id") Long id) {
         logger.info("executeGetById received for id {}", id);
 
-        Todo todo = todoService.findTodo(Long.valueOf(id));
+        Todo todo = todoService.findTodo(new TodoId(id));
         return Response.ok(todo).build();
     }
 
@@ -59,9 +60,10 @@ public class TodoBackendEndpoint {
     public Response executePostRequest(Todo todo) {
         logger.info("execute post request: received todo {}", todo);
         todo.setCompleted(false);
-        Long id = todoService.addTodo(todo);
+        TodoId id = todoService.addTodo(todo);
         URI createdURI =  uriInfo.getAbsolutePathBuilder().path(String.valueOf(id)).build();
         todo.setId(id);
+
         todo.setUrl(createdURI.toString());
         todoService.updateTodo(todo);
         logger.info("execute post request: updates todo {}", todo);
@@ -77,7 +79,7 @@ public class TodoBackendEndpoint {
     @Path("/{id}")
     @DELETE
     public Response executeDeleteByIdRequest(@PathParam("id")Long id) {
-        todoService.deleteTodoById(id);
+        todoService.deleteTodoById(new TodoId(id));
         return Response.ok().build();
     }
 
@@ -85,8 +87,8 @@ public class TodoBackendEndpoint {
     @PATCH
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateTodo(@PathParam("id")String id, Todo todo) {
-        Todo existingTodo = todoService.findTodo(Long.valueOf(id));
+    public Response updateTodo(@PathParam("id")Long id, Todo todo) {
+        Todo existingTodo = todoService.findTodo(new TodoId(id));
         if (existingTodo == null) {
             return Response.noContent().build();
         }

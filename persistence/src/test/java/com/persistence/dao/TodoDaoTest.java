@@ -2,6 +2,7 @@ package com.persistence.dao;
 
 import com.persistence.config.HibernateConfig;
 import com.persistence.entity.Todo;
+import com.persistence.entity.TodoId;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,19 +37,21 @@ public class TodoDaoTest {
 
 
     @Test
-    public void shouldAddTodo() {
+    public void shouldAddTodo() throws InterruptedException {
+        Thread.sleep(100);
+
         Todo todo = createTestTodo();
 
-        Long id = todoDao.addTodo(todo);
+        TodoId id = todoDao.addTodo(todo);
+
 
         Assert.assertNotNull(id);
-        Assert.assertEquals(Long.valueOf(2), id);
+        Assert.assertEquals(Long.valueOf(2), id.getId());
     }
 
     @Test
     public void shouldFindAddedTodo() {
-
-        Todo foundTodo = todoDao.findTodo(1l);
+        Todo foundTodo = todoDao.findTodo(new TodoId(1L));
 
         Assert.assertNotNull(foundTodo);
         Assert.assertEquals(EXISTING_TODO_TITLE, foundTodo.getTitle());
@@ -87,7 +90,7 @@ public class TodoDaoTest {
 
     @Test
     public void shouldDeleteTodoById() {
-        Long addedTodo = todoDao.addTodo(createTestTodo());
+        TodoId addedTodo = todoDao.addTodo(createTestTodo());
 
         todoDao.deleteTodo(addedTodo);
 
@@ -105,7 +108,7 @@ public class TodoDaoTest {
     private Todo getExistingTodo() {
         Todo todo = new Todo();
         todo.setTitle(EXISTING_TODO_TITLE);
-        todo.setId(1L);
+        todo.setId(new TodoId(1L));
         return todo;
     }
 

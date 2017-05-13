@@ -2,6 +2,7 @@ package com.backend;
 
 import com.persistence.entity.Todo;
 import com.persistence.entity.TodoBuilder;
+import com.persistence.entity.TodoId;
 import com.persistence.service.TodoService;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Ignore;
@@ -31,7 +32,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)      //this annotation doesn` work
 public class TodoBackendEndpointTest extends JerseyTest {
 
-    public static final long SOME_TODO_ID = 1l;
+    public static final TodoId SOME_TODO_ID = new TodoId(1L);
     public static final String SOME_TODO_TITLE = "some title";
     private TodoService service;
 

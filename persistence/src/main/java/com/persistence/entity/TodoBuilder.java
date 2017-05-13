@@ -5,13 +5,13 @@ package com.persistence.entity;
  */
 public class TodoBuilder {
 
-    private Long id;
+    private TodoId id;
     private String title;
     private boolean completed;
     private String url;
     private Long order;
 
-    public TodoBuilder setId(Long newId) {
+    public TodoBuilder setId(TodoId newId) {
         this.id = newId;
         return this;
     }

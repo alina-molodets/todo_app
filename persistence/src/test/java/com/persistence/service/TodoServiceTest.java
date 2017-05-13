@@ -3,6 +3,7 @@ package com.persistence.service;
 import com.persistence.dao.TodoDao;
 import com.persistence.entity.Todo;
 import com.persistence.entity.TodoBuilder;
+import com.persistence.entity.TodoId;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,12 +19,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * Created by alinaaleksandrova on 4/16/17.
+ * Created by aal
  */
 @RunWith(MockitoJUnitRunner.class)
 public class TodoServiceTest {
 
-    private static final Long ANY_ID = 1L;
+    private static final TodoId ANY_ID = new TodoId(1L);
     private static final String ANY_TODO_TITLE = "todoTitle";
     private static final String NEW_TODO_TITLE = "newTodoTitle";
 
@@ -90,7 +91,7 @@ public class TodoServiceTest {
         Todo todo = new TodoBuilder().setTitle(ANY_TODO_TITLE).createTodo();
         when(todoDao.addTodo(eq(todo))).thenReturn(ANY_ID);
 
-        Long addedId = todoService.addTodo(todo);
+        TodoId addedId = todoService.addTodo(todo);
 
         verify(todoDao).addTodo(eq(todo));
         Assert.assertEquals(ANY_ID, addedId);
@@ -105,9 +106,5 @@ public class TodoServiceTest {
 
         verify(todoDao).updateTodo(eq(todo));
     }
-
-
-
-
 
 }

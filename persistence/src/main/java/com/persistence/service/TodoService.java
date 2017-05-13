@@ -3,6 +3,7 @@ package com.persistence.service;
 
 import com.persistence.dao.TodoDao;
 import com.persistence.entity.Todo;
+import com.persistence.entity.TodoId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class TodoService {
     @Autowired
     TodoDao todoDao;
 
-    public Todo findTodo(Long id) {
+    public Todo findTodo(TodoId id) {
         return todoDao.findTodo(id);
     }
 
@@ -46,14 +47,14 @@ public class TodoService {
     }
 
     @Transactional(readOnly = false)
-    public void deleteTodoById(Long id) {
+    public void deleteTodoById(TodoId id) {
         todoDao.deleteTodo(id);
     }
 
     @Transactional(readOnly = false)
-    public Long addTodo(Todo todo) {
-        Long addedTodoId = todoDao.addTodo(todo);
-        logger.info("addTodo: todo {} was saved", addedTodoId);
+    public TodoId addTodo(Todo todo) {
+        TodoId addedTodoId = todoDao.addTodo(todo);
+        logger.info("addTodo: todo with id {} was saved", addedTodoId.getId());
         return addedTodoId;
     }
 

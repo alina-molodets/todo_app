@@ -1,6 +1,7 @@
 package com.persistence.dao;
 
 import com.persistence.entity.Todo;
+import com.persistence.entity.TodoId;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -27,9 +28,9 @@ public class TodoDao {
         return sessionFactory.getCurrentSession();
     }
 
-    public Todo findTodo(Long id) {
+    public Todo findTodo(TodoId id) {
         logger.info("find TODO: {}", id);
-        Todo todo = (Todo)getSession().get(Todo.class, id);
+        Todo todo = getSession().get(Todo.class, id);
         logger.debug("findTodo: found todo: {}", todo);
         return todo;
     }
@@ -38,9 +39,8 @@ public class TodoDao {
         return getSession().createQuery("from Todo").list();
     }
 
-    public Long addTodo(Todo todo) {
-        Long savedTodo = (Long) getSession().save(todo);
-        return savedTodo;
+    public TodoId addTodo(Todo todo) {
+        return (TodoId) getSession().save(todo);
     }
 
     public int deleteAllTodos() {
@@ -51,9 +51,9 @@ public class TodoDao {
         getSession().update(todo);
     }
 
-    public void deleteTodo(Long id) {
+    public void deleteTodo(TodoId id) {
         Todo todo  = (Todo)getSession().createCriteria(Todo.class)
-                .add(Restrictions.eq("id", id))
+                .add(Restrictions.eq("id", id.getId()))
                 .uniqueResult();
 
         getSession().delete(todo);
