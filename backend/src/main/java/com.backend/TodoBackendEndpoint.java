@@ -61,10 +61,10 @@ public class TodoBackendEndpoint {
         logger.info("execute post request: received todo {}", todo);
         todo.setCompleted(false);
         TodoId id = todoService.addTodo(todo);
-        URI createdURI =  uriInfo.getAbsolutePathBuilder().path(String.valueOf(id)).build();
+        URI createdURI =  uriInfo.getAbsolutePathBuilder().path(String.valueOf(id.getId())).build();
         todo.setId(id);
-
         todo.setUrl(createdURI.toString());
+
         todoService.updateTodo(todo);
         logger.info("execute post request: updates todo {}", todo);
         return Response.ok(todo).contentLocation(createdURI).build();
